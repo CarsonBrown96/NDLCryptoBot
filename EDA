@@ -1,9 +1,19 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 df0 = pd.read_csv('ETH Hist.csv')
 df1 = pd.read_csv('ETH USD Historical Data.csv')
 df2 = pd.read_csv('ETHBTC.csv')
 
+#blah=datetime.datetime.strptime(df0['Date'], '%b %d %Y')
+#print(blah)
+df0['Date'] = pd.to_datetime(df0['Date'])
+df1['Date'] = pd.to_datetime(df1['Date'])
+
+print(df1.describe())
 print(df0.head())
 print(df1.head())
 print(df2.head())
+
+plt.plot(df1['Date'],df1['Price'])
+plt.show()
