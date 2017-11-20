@@ -10,10 +10,19 @@ df2 = pd.read_csv('ETHBTC.csv')
 df0['Date'] = pd.to_datetime(df0['Date'])
 df1['Date'] = pd.to_datetime(df1['Date'])
 
-print(df1.describe())
-print(df0.head())
-print(df1.head())
-print(df2.head())
+#print(df1.describe())
+#print(df0.head())
+#print(df1.head())
+#print(df2.head())
 
-plt.plot(df1['Date'],df1['Price'])
-plt.show()
+#plt.plot(df0['Date'],df0['High'], df1['Date'], df1['High'])
+#plt.show()
+
+
+dtrng=pd.date_range(start='03/10/2016', end='11/16/2016')
+#print(dtrng[1])
+#print(df0.iloc[-217,0])
+
+print(df0.iloc[dtrng])
+print(df0.head())
+#print(dfsub.head())
