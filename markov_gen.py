@@ -1,16 +1,22 @@
+#Markov matrix generator for Markov Time Series
+
 import pandas as pd
 
+#Main method. Returns the matrix with all values filled in
 def getMatrix(bound, intervals, prices, period):
+    #initialize return value as empty matrix of correct size
     ret = init_matrix(intervals)
+
+    #get the interval values
     ints = getIntervals(bound, intervals)
-    print ints
+    #initilize prev as percent change in first 7 days
     prev = 100 * (1 - (prices[period] / prices[0]))
+    #loop through prices in 7 day increments, filling out the matrix
     for i in range(1, len(prices) / period):
         change = 100 * (1 - (prices[period * i] / prices[period * (i+1)]))
         first, second = interval(prev, ints), interval(change, ints)
         ret[first][second] += 1
         prev = change
-    print ret
     return matricize(ret)
 
 
@@ -53,7 +59,7 @@ def matricize(matrix):
                 line.append(0)
             ret.append(line)
             line = []
-            break
+            continue
         for n in i:
             line.append(float(n) / total)
         ret.append(line)
@@ -65,4 +71,6 @@ if __name__ == '__main__':
     prices = list()
     for i in hist['Close']:
         prices.insert(0, i)
-    print getMatrix(15, 6, prices, 7)
+    a = getMatrix(15, 6, prices, 7)
+    for i in a:
+        print i
