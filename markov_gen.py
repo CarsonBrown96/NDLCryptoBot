@@ -7,9 +7,9 @@ def getMatrix(bound, intervals, prices, period):
     prev = 100 * (1 - (prices[period] / prices[0]))
     for i in range(1, len(prices) / period):
         change = 100 * (1 - (prices[period * i] / prices[period * (i+1)]))
-        #print prev + ", " + change
         first, second = interval(prev, ints), interval(change, ints)
         ret[first][second] += 1
+        prev = change
     print ret
     return matricize(ret)
 
@@ -51,10 +51,13 @@ def matricize(matrix):
         if total == 0:
             for n in range(len(i)):
                 line.append(0)
+            ret.append(line)
+            line = []
             break
         for n in i:
-            line.append(n / total)
+            line.append(float(n) / total)
         ret.append(line)
+        line = []
     return ret
 
 if __name__ == '__main__':
