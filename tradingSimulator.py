@@ -16,9 +16,8 @@ def simulate(mon):
         decision = evaluate(prices[:previous], 7, money)
         position[0] += decision[0]
         position[1] += decision[1]
-        print "Current position " + str(position[0]) + " ETH with $" + str(position[1])
+        #print "Current position " + str(position[0]) + " ETH with $" + str(position[1])
         money += decision[1]
-        print money
         previous += 1
     print "$" + str(money) + " and " + str((position[0] * prices[-1])) + "ETH"
     return money + (position[0] * prices[-1])
@@ -27,14 +26,14 @@ def evaluate(previous_data, period, money):
     #takes an array of previous prices
     #RETURNS: tuple of (coins exchanged, investment)
     #A buy will be a negative investment, a sell will be a positive investment
-    intervals = 5
-    matrix, ints = getMatrix(25, intervals, previous_data, period)
+    intervals = 10
+    matrix, ints = getMatrix(15, intervals, previous_data, period)
     prev = 100 * (1 - (previous_data[-1] / previous_data[-period]))
     probs = interval(prev, ints)
     up_prob = sum(matrix[probs][intervals/2+1:])
     if up_prob > .6 and money > 0:
         return buy(money * up_prob, previous_data[-1], money)
-    if up_prob < .15 and position[0] > 0:
+    if up_prob < .1 and position[0] > 0:
         return sell(up_prob, previous_data[-1])
     return (0, 0)
 
@@ -46,7 +45,8 @@ def buy(dollar_amount, price, money):
     return coins, -dollar_amount
 
 def sell(up_prob, price):
-    sell = (1-up_prob) * position[0]
+    #sell = (1-up_prob) * position[0]
+    sell = position[0]
     print "Sold  " + str(sell) + " coins at $" + str(price)
     return -sell, sell*price
 
