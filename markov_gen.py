@@ -13,15 +13,17 @@ def getMatrix(bound, intervals, prices, period):
     prev = 100 * (1 - (prices[period] / prices[0]))
     #loop through prices in 7 day increments, filling out the matrix
     for i in range(1, len(prices) / period):
-        
+
         # regarding return formula: correct but confusing .. standard practice for calculating return would be the following
             # 100 * (prices[period * (i+1)] / (prices[period * i])
-        # however i did not want to change it because youre correct 
+        # however i did not want to change it because youre correct
+        if(period * (i+1) >= len(prices)):
+            break
         change = 100 * (1 - (prices[period * i] / prices[period * (i+1)]))
         first, second = interval(prev, ints), interval(change, ints)
         ret[first][second] += 1
         prev = change
-    return matricize(ret)
+    return matricize(ret), ints
 
 
 def getIntervals(bound, intervals):
