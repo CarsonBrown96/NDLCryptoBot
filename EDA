@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import datetime
 import matplotlib.pyplot as plt
 
@@ -9,13 +10,15 @@ df3 = pd.read_csv('all_data.csv')
 
 df0['Date'] = pd.to_datetime(df0['Date'])
 df1['Date'] = pd.to_datetime(df1['Date'])
-datetime.datetime.fromtimestamp(float(df3.iloc[0,0])/1000.)
-df3.iloc[0,0].strftime('%Y-%m-%d %H:%M:%S')
+df3dt=pd.df3['Date'].as_matrix()
+
+print(type(df3dt))
+
 #HEADS OF EACH
 #print(df0.head())
 #print(df1.head())
 #print(df2.head())
-print(df3.head())
+#print(df3.head())
 
 #ETH/$ FOR TWO DIFFERENT DFS
 #plt.plot(df0['Date'],df0['High'], df1['Date'], df1['High'])
